@@ -571,6 +571,7 @@ payload = json.dumps({
                     "C_25": None,
                     "C_26": None,
                     "C_27": None
+                },
                 {
                     "C_1": "7D",
                     "C_2": None,
@@ -3159,7 +3160,6 @@ payload = json.dumps({
             ],
             "LineItem": "Rig : Ger : Rig EBITDA"
         }
-    }
     },
     "request_meta": {
         "version_id": "8907652e-e708-409e-971e-d0223db696a4",
