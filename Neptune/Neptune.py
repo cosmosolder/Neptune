@@ -7,6 +7,8 @@ from anthropic import Anthropic
 from mcp.server.fastmcp import FastMCP
 import requests
 import json
+from dotenv import load_dotenv
+import os
 
 # Initialize FastMCP server
 mcp = FastMCP("CashflowModel", description="API Testing Tool using FastMCP", version="1.0.0")
@@ -14,6 +16,10 @@ mcp = FastMCP("CashflowModel", description="API Testing Tool using FastMCP", ver
 # Constants
 url = "https://excel.uat.us.coherent.global/presales/api/v3/folders/Neptune/services/Neptune- Company model_Sanitized_6.5.25/execute"
 query_value = "[\"Label\",\"RigDates\",\"Rigs\"]"
+
+load_dotenv()  # Loads variables from .env into environment
+
+synthetic_key = os.getenv("SYNTHETIC_KEY")
 
 # Payload for the API request
 # This payload is structured to match the expected input for the CashflowModel service.
@@ -3174,7 +3180,7 @@ payload = json.dumps({
 headers = {
    'Content-Type': 'application/json',
    'x-tenant-name': 'presales',
-   'x-synthetic-key': '46ac56eb-90ea-4570-80c3-4750ffae5874'
+   'x-synthetic-key': synthetic_key
 }
 
 # Function to make a synchronous request to the API endpoint
