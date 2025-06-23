@@ -20,6 +20,7 @@ query_value = "[\"Label\",\"RigDates\",\"Rigs\"]"
 load_dotenv()  # Loads variables from .env into environment
 
 synthetic_key = os.getenv("SYNTHETIC_KEY")
+CLAUDE_FLAG = os.getenv("CLAUDE_FLAG", "False").lower() == "true"
 
 # Payload for the API request
 # This payload is structured to match the expected input for the CashflowModel service.
@@ -3248,11 +3249,10 @@ if __name__ == "__main__":
     import asyncio
     # Initialize and run the server
     # This will start the FastMCP server and listen for incoming requests.
-    mcp.run(transport='stdio')
-
- 
-    #print('API',url,'\n','Headers',headers,'\n','Payload',payload, file=sys.stderr)
-    # Test the non-server function call
-    #asyncio.run(call_url_func())  # type: ignore # Call the API to test it asynchronously
-    #call_url()  # Call the API to test it synchronously
+    if CLAUDE_FLAG: mcp.run(transport='stdio')
+    else:
+        print('API',url,'\n','Headers',headers,'\n','Payload',payload, file=sys.stderr)
+        # Test the non-server function call
+        #asyncio.run(call_url_func())  # type: ignore # Call the API to test it asynchronously
+        call_url()  # Call the API to test it synchronously
     
