@@ -11,11 +11,13 @@ from dotenv import load_dotenv
 import os
 
 # Initialize FastMCP server
-mcp = FastMCP("CashflowModel", description="API Testing Tool using FastMCP", version="1.0.0")
+mcp = FastMCP("NeptuneModel", description="API Testing Tool using FastMCP", version="1.0.0")
 
 # Constants
-url = "https://excel.uat.us.coherent.global/presales/api/v3/folders/Neptune/services/Neptune- Company model_Sanitized_6.5.25/execute"
-query_value = "[\"Label\",\"RigDates\",\"Rigs\"]"
+url = "https://excel.uat.us.coherent.global/presales/api/v3/folders/Neptune/services/Neptune- Company model_Sanitized_6.5.25-shell/execute"
+#if we're executing the latest version of the service, we don't need to supply an api versionId
+versionId = None
+query_value = "[\"Results\",\"RigDates\",\"Rigs\",\"ClassResults\",\"DCF\"]"
 
 load_dotenv()  # Loads variables from .env into environment
 
@@ -3165,11 +3167,12 @@ payload = json.dumps({
                     "C_27": 0
                 }
             ],
+            "ClassLineItem": "6SA",
             "LineItem": "Rig : Ger : Rig EBITDA"
         }
     },
     "request_meta": {
-        "version_id": "8907652e-e708-409e-971e-d0223db696a4",
+        "version_id": versionId,
         "transaction_date": None,
         "call_purpose": "Spark - MCP Claude API Tester",
         "source_system": "Anthropic Claude",
@@ -3251,7 +3254,7 @@ if __name__ == "__main__":
     # This will start the FastMCP server and listen for incoming requests.
     if CLAUDE_FLAG: mcp.run(transport='stdio')
     else:
-        print('API',url,'\n','Headers',headers,'\n','Payload',payload, file=sys.stderr)
+        print('API',url,'\n==========================\n','Headers',headers,'\n===========================\n','Payload',payload, file=sys.stderr)
         # Test the non-server function call
         #asyncio.run(call_url_func())  # type: ignore # Call the API to test it asynchronously
         call_url()  # Call the API to test it synchronously
